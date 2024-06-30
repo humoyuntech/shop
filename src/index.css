@@ -18,6 +18,10 @@ body {
   margin: 50px auto;
 }
 
+header {
+  position: relative;
+}
+
 header .logo {
   font-weight: 600;
   font-size: 20px;
@@ -37,6 +41,29 @@ header ul.nav li {
 
 header ul.nav li:hover {
   opacity: 0.5;
+}
+
+header .shop-cart-buttun {
+  float: right;
+  cursor: pointer;
+  transition: color, transform 500ms ease;
+}
+
+header .shop-cart-buttun:hover,
+header .shop-cart-buttun.active {
+  color: rgba(219, 61, 61, 0.7);
+  transform: scale(1.5);
+}
+
+header .shop-cart{
+  position: absolute;
+  top: 30px;
+  right: 0;
+  width: 450px;
+  min-height: 100px;
+  background:#fafafa;
+  box-shadow: 4px 5px 15px -7px #606060;
+  z-index: 2;
 }
 
 header .presentation {
