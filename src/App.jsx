@@ -7,6 +7,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      orders: [],
       item: [
         {
           id: 1,
@@ -48,18 +49,61 @@ class App extends React.Component {
           category: 'chairs',
           price: '49.99'
         },
+        {
+          id: 6,
+          title: 'Шкаф',
+          img: 'https://ubiwood.com/image/cache/catalog/s1200-1000x1000.jpg',
+          desc: 'Lorem ipsum dolor sit amet consectetur adipisicing.',
+          category: 'chairs',
+          price: '89.99'
+        },
+        {
+        id: 7,
+        title: 'Книжная полка',
+        img: 'https://m.media-amazon.com/images/I/61ZAClocNdL._AC_UF1000,1000_QL80_.jpg',
+        desc: 'Lorem ipsum dolor sit amet consectetur adipisicing.',
+        category: 'chairs',
+        price: '120.99'
+      },
+      {
+        id: 8,
+        title: 'Тумбочка',
+        img: 'https://m.media-amazon.com/images/I/61Rhl4M8QuL.jpg',
+        desc: 'Lorem ipsum dolor sit amet consectetur adipisicing.',
+        category: 'chairs',
+        price: '120.99'
+      },
+      {
+        id: 9,
+        title: 'Комод',
+        img: 'https://nixxa-mebel.ru/assets/images/catalog/gostinye/fiord/148183391460378659.jpg',
+        desc: 'Lorem ipsum dolor sit amet consectetur adipisicing.',
+        category: 'chairs',
+        price: '100.99'
+      },
       ]
     }
+    this.addToOrder = this.addToOrder.bind(this);
   }
   render() {
       return (
         <div className="wrapper">
-          <Header/>
-          <Items items={this.state.item}/>
+          <Header orders={this.state.orders}/>
+          <Items items={this.state.item} onAdd={this.addToOrder} />
           <Footer/>
         </div>
       )
 
+  }
+
+  addToOrder(item) {
+    let isInArray = false;
+    this.state.orders.forEach(el => {
+      if (el.id === item.id) {
+        isInArray = true
+      }
+    })
+    if(!isInArray) this.setState({orders: [...this.state.orders, item]})
   }
 }
 
