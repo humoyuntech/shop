@@ -84,16 +84,21 @@ class App extends React.Component {
       ]
     }
     this.addToOrder = this.addToOrder.bind(this);
+    this.deleteOrder = this.deleteOrder.bind(this);
   }
   render() {
       return (
         <div className="wrapper">
-          <Header orders={this.state.orders}/>
+          <Header orders={this.state.orders} onDelete={this.deleteOrder}/>
           <Items items={this.state.item} onAdd={this.addToOrder} />
           <Footer/>
         </div>
       )
 
+  }
+
+  deleteOrder(id) {
+    this.setState({orders: this.state.orders.filter(el => el.id !== id)})
   }
 
   addToOrder(item) {
