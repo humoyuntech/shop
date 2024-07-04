@@ -2,12 +2,14 @@ import React from "react"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
 import Items from "./components/Items"
+import Categories from "./components/Categories"
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       orders: [],
+      currentItems: [],
       item: [
         {
           id: 1,
@@ -54,7 +56,7 @@ class App extends React.Component {
           title: 'Шкаф',
           img: 'https://ubiwood.com/image/cache/catalog/s1200-1000x1000.jpg',
           desc: 'Lorem ipsum dolor sit amet consectetur adipisicing.',
-          category: 'chairs',
+          category: 'wardrobe',
           price: '89.99'
         },
         {
@@ -62,7 +64,7 @@ class App extends React.Component {
         title: 'Книжная полка',
         img: 'https://m.media-amazon.com/images/I/61ZAClocNdL._AC_UF1000,1000_QL80_.jpg',
         desc: 'Lorem ipsum dolor sit amet consectetur adipisicing.',
-        category: 'chairs',
+        category: 'bookshelf',
         price: '120.99'
       },
       {
@@ -70,7 +72,7 @@ class App extends React.Component {
         title: 'Тумбочка',
         img: 'https://m.media-amazon.com/images/I/61Rhl4M8QuL.jpg',
         desc: 'Lorem ipsum dolor sit amet consectetur adipisicing.',
-        category: 'chairs',
+        category: 'bedside-table',
         price: '120.99'
       },
       {
@@ -78,23 +80,36 @@ class App extends React.Component {
         title: 'Комод',
         img: 'https://nixxa-mebel.ru/assets/images/catalog/gostinye/fiord/148183391460378659.jpg',
         desc: 'Lorem ipsum dolor sit amet consectetur adipisicing.',
-        category: 'chairs',
+        category: 'dresser',
         price: '100.99'
       },
       ]
     }
+    this.state.currentItems = this.state.item;
     this.addToOrder = this.addToOrder.bind(this);
     this.deleteOrder = this.deleteOrder.bind(this);
+    this.chooseCategory = this.chooseCategory.bind(this);
   }
   render() {
       return (
         <div className="wrapper">
           <Header orders={this.state.orders} onDelete={this.deleteOrder}/>
-          <Items items={this.state.item} onAdd={this.addToOrder} />
+          <Categories chooseCategory={this.chooseCategory}/>
+          <Items items={this.state.currentItems} onAdd={this.addToOrder} />
           <Footer/>
         </div>
       )
 
+  }
+
+  chooseCategory(category) {
+    if (category === "all") {
+      this.setState({currentItems: this.state.item})
+      return
+    }
+    this.setState({
+      currentItems : this.state.item.filter(el => el.category === category)
+    })
   }
 
   deleteOrder(id) {
